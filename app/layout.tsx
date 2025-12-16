@@ -3,22 +3,22 @@ import { Inter } from "@next/font/google";
 import LocalFont from "@next/font/local";
 import { Metadata } from "next";
 import { Analytics } from "./components/analytics";
+import { profile } from "@/data/profile";
 
 export const metadata: Metadata = {
   title: {
-    default: "chronark.com",
-    template: "%s | chronark.com",
+    default: profile.siteName,
+    template: `%s | ${profile.siteName}`,
   },
-  description: "Co-founder of unkey.dev and founder of planetfall.io",
+  description: profile.headline,
   openGraph: {
-    title: "chronark.com",
-    description:
-      "Co-founder of unkey.dev and founder of planetfall.io",
-    url: "https://chronark.com",
-    siteName: "chronark.com",
+    title: profile.siteName,
+    description: profile.headline,
+    url: profile.siteUrl,
+    siteName: profile.siteName,
     images: [
       {
-        url: "https://chronark.com/og.png",
+        url: `${profile.siteUrl}/og.png`,
         width: 1920,
         height: 1080,
       },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: "Chronark",
+    title: profile.name,
     card: "summary_large_image",
   },
   icons: {
