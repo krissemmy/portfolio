@@ -1,10 +1,9 @@
 ---
 title: Socrata API pipeline to GCS and BigQuery
-description: Data pipeline for extracting data from Socrata APIs and loading into Google Cloud Storage and BigQuery.
+description: Batch pipeline that moves Socrata API datasets into GCS and BigQuery with automated schema handling.
 date: "2023-11-01"
 published: true
 repository: krissemmy/Socrata-API-Data-To-BigQuery
 ---
 
-Automated data pipeline that extracts data from Socrata open data APIs and loads it into Google Cloud Storage and BigQuery for analytics and reporting.
-
+The pipeline pulls data from Socrata open data APIs, stages it in Google Cloud Storage, and loads it into partitioned tables in BigQuery. Schema management and loading steps are scripted so recurring ingests stay reliable.

@@ -1,10 +1,9 @@
 ---
 title: EVM ETL pipeline using dlt
-description: Extract, Transform, Load pipeline for EVM blockchain data using the dlt framework.
+description: dlt-based pipeline that ingests EVM block data into a warehouse with schema management and incremental loads.
 date: "2025-10-01"
 published: true
 repository: krissemmy/ETL-with-dlt
 ---
 
-An ETL pipeline solution for extracting, transforming, and loading EVM blockchain data using the dlt (data load tool) framework for efficient data processing.
-
+The project uses dlt to pull EVM blocks and transactions, apply lightweight transforms, and land the results in a warehouse-ready format. It includes schema definitions and incremental loading so blockchain datasets stay in sync without manual jobs.
