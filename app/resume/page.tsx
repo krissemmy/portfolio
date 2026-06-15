@@ -29,7 +29,9 @@ export default function ResumePage() {
 						Resume
 					</h2>
 					<p className="mt-4 text-zinc-400">
-						My professional resumes and documents.
+						My resumes for the role you&apos;re hiring for — from
+						technical/developer support to cloud and DevOps infrastructure,
+						data systems, and blockchain node operations.
 					</p>
 				</div>
 				<div className="w-full h-px bg-zinc-800" />

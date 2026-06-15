@@ -1,0 +1,22 @@
+---
+title: ShipCheck — Deployment Readiness Checker
+description: Paste a live app URL and get a clear pre-launch readiness report — HTTPS/TLS, response time, security headers, health endpoints, and a launch score — so you know if a deploy is ready before you share it.
+date: "2026-05-15"
+url: https://shipcheck.krissemmy.com/
+category: Cloud / DevOps / Infrastructure
+order: 1
+published: true
+repository: https://github.com/krissemmy/shipcheck
+---
+
+ShipCheck is an open-source deployment readiness checker. You paste a live app URL and it runs a compact pre-launch pass over the signals that usually break first, then returns a clear readiness report and a launch score.
+
+It checks:
+
+- **Availability** — confirms the app responds with a usable public HTTP status.
+- **HTTPS / TLS** — flags plain HTTP before a demo link reaches customers or teammates.
+- **Response time** — measures how quickly the deployed URL answers from the browser.
+- **Security headers** — checks CSP, HSTS, frame, content-type, and referrer-policy headers.
+- **Health endpoints** — looks for common readiness endpoints like `/health` and `/readyz`.
+
+The result is a single launch score and a plain-language verdict (for example, "demo ready, not production ready") that turns a vague "is this good to ship?" into concrete, actionable findings. All checks run in the browser.
