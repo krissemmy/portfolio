@@ -10,7 +10,7 @@ export const revalidate = 60;
 // Category display order. Cloud/DevOps leads so the first impression is
 // infrastructure and reliability, not Web3.
 const CATEGORY_ORDER = [
-  "Cloud / DevOps / Infrastructure",
+  "Cloud / DevOps / Infrastructure / Compliance",
   "Developer Tools / API Reliability",
   "Data Engineering",
   "Blockchain / Node Operations",
