@@ -25,7 +25,7 @@ export const ConsultingContactForm: React.FC = () => {
           email: data.get("email"),
           company: data.get("company"),
           message: data.get("message"),
-          website: data.get("website"),
+          hp_check: data.get("hp_check"),
         }),
       });
 
@@ -58,12 +58,19 @@ export const ConsultingContactForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {/* Honeypot: hidden from real visitors, only bots fill this in. */}
+      {/*
+        Honeypot: hidden from real visitors, only bots fill this in.
+        Name is deliberately non-semantic ("hp_check", not "website"/"url") —
+        common honeypot names collide with browser/extension autofill
+        heuristics, which then trips this for real users too.
+      */}
       <input
         type="text"
-        name="website"
+        name="hp_check"
         tabIndex={-1}
         autoComplete="off"
+        data-lpignore="true"
+        data-1p-ignore="true"
         className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
         aria-hidden="true"
       />

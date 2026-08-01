@@ -9,7 +9,7 @@ interface ConsultingInquiryBody {
   company?: string;
   message?: string;
   // Honeypot: real visitors never fill this in; bots that fill every field do.
-  website?: string;
+  hp_check?: string;
 }
 
 function isValidEmail(email: string) {
@@ -32,10 +32,12 @@ export async function POST(request: Request) {
     return Response.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const { name, email, company, message, website } = body;
+  const { name, email, company, message, hp_check } = body;
 
-  if (website) {
+  if (hp_check) {
     // Honeypot tripped — pretend success so bots don't learn to skip this field.
+    // Logged (not silent) so a false positive from autofill/an extension is visible in Vercel logs.
+    console.warn("Consulting form honeypot tripped, message not sent", { hp_check });
     return Response.json({ ok: true });
   }
 
