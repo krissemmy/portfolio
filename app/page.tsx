@@ -5,6 +5,7 @@ import { profile, hero, about, tracks, skills } from "@/data/profile";
 
 const navigation = [
   { name: "Projects", href: "/projects" },
+  { name: "Consulting", href: "/consulting" },
   { name: "Resume", href: "/resume" },
   { name: "Contact", href: "/contact" },
 ];
