@@ -14,17 +14,17 @@ export interface Testimonial {
   outcome?: string;
 }
 
-// PLACEHOLDER DATA — replace with real client testimonials before publishing.
-// To add a real testimonial, append an object here following the Testimonial
+// To add a testimonial, append an object here following the Testimonial
 // shape above. Only `name`, `role`, `company`, and `quote` are required.
 export const testimonials: Testimonial[] = [
   {
-    name: "PLACEHOLDER — Client Name",
-    role: "Founder & CEO",
-    company: "PLACEHOLDER — Startup Name",
+    name: "Favour Anwara",
+    role: "CTO",
+    company: "Carrybin",
     quote:
-      "PLACEHOLDER TESTIMONIAL — replace with a real client quote before publishing this page.",
-    outcome: "PLACEHOLDER OUTCOME — e.g. reduced monthly hosting spend by 90%.",
+      "Emmanuel helped us move away from an infrastructure setup that had become too expensive for our stage, reducing our core infrastructure cost by more than 95%. He handled the migration end to end and left us with a setup the team could understand and manage ourselves.",
+    linkUrl:
+      "https://www.linkedin.com/in/emmanuel-christopher/details/recommendations/",
     anonymous: false,
   },
 ];

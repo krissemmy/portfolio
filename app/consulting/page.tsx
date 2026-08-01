@@ -92,13 +92,18 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
               href={testimonial.linkUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-auto text-zinc-500 hover:text-zinc-200"
-              aria-label={`${displayName} on LinkedIn or X`}
+              className="ml-auto flex items-center gap-1.5 text-xs text-zinc-500 hover:text-zinc-200"
             >
               {testimonial.linkUrl.includes("linkedin") ? (
-                <Linkedin size={16} />
+                <>
+                  <Linkedin size={14} />
+                  View recommendation
+                </>
               ) : (
-                <Twitter size={16} />
+                <>
+                  <Twitter size={14} />
+                  View post
+                </>
               )}
             </Link>
           )}
