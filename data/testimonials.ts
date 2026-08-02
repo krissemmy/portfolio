@@ -20,7 +20,7 @@ export const testimonials: Testimonial[] = [
   {
     name: "Favour Anwara",
     role: "CTO",
-    company: "Carrybin",
+    company: "Carybin",
     quote:
       "Emmanuel helped us move away from an infrastructure setup that had become too expensive for our stage, reducing our core infrastructure cost by more than 95%. He handled the migration end to end and left us with a setup the team could understand and manage ourselves.",
     linkUrl:
