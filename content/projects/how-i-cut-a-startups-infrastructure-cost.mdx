@@ -1,0 +1,12 @@
+---
+title: Cutting Infrastructure Cost Without Self-Hosting Everything (Article)
+description: How I moved a startup from Vercel, Render, and Supabase to Dokploy and Cloudflare R2 — reducing managed-service costs while keeping MongoDB managed and preserving clear failure boundaries.
+date: "2026-08-11"
+category: Cloud / DevOps / Infrastructure / Compliance
+order: 1
+url: https://krissemmy.substack.com/p/how-i-cut-a-startups-infrastructure
+published: true
+repository:
+---
+
+A practical account of reducing a startup's infrastructure bill without putting every service on one VPS. The migration moved application compute to Hetzner through Dokploy, separated Redis cache and BullMQ queue workloads, copied files from Supabase Storage to Cloudflare R2, safely rewrote stored asset URLs, and kept MongoDB managed to limit the impact of a server failure.
