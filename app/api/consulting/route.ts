@@ -55,9 +55,12 @@ export async function POST(request: Request) {
   }
 
   const resend = new Resend(apiKey);
-  const to = process.env.CONSULTING_CONTACT_EMAIL || profile.email;
+  const to = process.env.CONSULTING_CONTACT_EMAIL || profile.consultingEmail;
+  // krissemmy.com is a verified Resend sending domain, so the default sender is
+  // the real consulting address rather than Resend's shared sandbox.
   const from =
-    process.env.RESEND_FROM_EMAIL || "Portfolio Contact <onboarding@resend.dev>";
+    process.env.RESEND_FROM_EMAIL ||
+    `Portfolio Contact <${profile.consultingEmail}>`;
 
   try {
     const { error } = await resend.emails.send({

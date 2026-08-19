@@ -4,6 +4,10 @@ export const profile = {
   headline:
     "Cloud / DevOps + Technical Support Engineer — infrastructure, APIs, reliability, and developer-facing systems",
   email: "krissemmy17@gmail.com",
+  // Separate from `email`: recruiters and general contact use the personal
+  // address, client/consulting inquiries go here. Also the verified Resend
+  // sending domain, so the /consulting form sends from it.
+  consultingEmail: "consulting@krissemmy.com",
   github: "https://github.com/krissemmy",
   linkedin: "https://www.linkedin.com/in/emmanuel-christopher/",
   twitter: "https://x.com/chris__emma",

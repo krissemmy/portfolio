@@ -175,12 +175,12 @@ export default function ConsultingPage() {
               <p>
                 Prefer email? Reach me directly at{" "}
                 <Link
-                  href={`mailto:${profile.email}?subject=${encodeURIComponent(
+                  href={`mailto:${profile.consultingEmail}?subject=${encodeURIComponent(
                     "Consulting inquiry",
                   )}`}
                   className="text-zinc-200 underline hover:text-white"
                 >
-                  {profile.email}
+                  {profile.consultingEmail}
                 </Link>
                 .
               </p>
