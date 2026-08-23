@@ -41,8 +41,17 @@ module.exports = {
 				title: "title 3s ease-out forwards",
 				"fade-left": "fade-left 3s ease-in-out forwards",
 				"fade-right": "fade-right 3s ease-in-out forwards",
+				// Duration comes from --marquee-duration so the track's px/sec
+				// stays constant as testimonials are added. See TestimonialMarquee.
+				marquee: "marquee var(--marquee-duration, 60s) linear infinite",
 			},
 			keyframes: {
+				// The track renders two identical halves, so -50% lands on a
+				// pixel-identical frame and the loop has no visible seam.
+				marquee: {
+					from: { transform: "translateX(0)" },
+					to: { transform: "translateX(-50%)" },
+				},
 				"fade-in": {
 					"0%": {
 						opacity: "0%",

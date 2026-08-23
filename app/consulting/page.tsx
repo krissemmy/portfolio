@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Linkedin, Twitter } from "lucide-react";
@@ -51,65 +52,168 @@ function getInitials(name: string) {
     .join("");
 }
 
-function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+// Wide, landscape-shaped cards. At this width a long recommendation wraps in
+// far fewer lines, so the marquee band stays short, and three cards already
+// overrun the container — the loop never shows dead track.
+const CARD_WIDTH = "w-[min(88vw,45rem)]";
+// Paced per card rather than as a fixed total, so scroll speed stays the same
+// as testimonials are added.
+const SECONDS_PER_CARD = 16;
+// A half must be at least this many cards or it can be narrower than the
+// viewport, which would open a gap at the wrap point.
+const MIN_CARDS_PER_HALF = 3;
+
+function TestimonialCard({
+  testimonial,
+  decorative = false,
+}: {
+  testimonial: Testimonial;
+  decorative?: boolean;
+}) {
   const isAnonymous = testimonial.anonymous;
   const displayName = isAnonymous ? "Startup Founder" : testimonial.name;
-  const displayRole = isAnonymous
-    ? "Details withheld at client's request"
-    : `${testimonial.role}, ${testimonial.company}`;
+  // Cloned cards exist only to close the loop visually. Keep their links out
+  // of the tab order so keyboard users don't walk the same links twice.
+  const linkTabIndex = decorative ? -1 : undefined;
+  const lastParagraph = testimonial.quote.length - 1;
 
   return (
-    <Card>
-      <div className="flex flex-col h-full gap-4 p-6 md:p-8">
-        <p className="text-zinc-300 leading-7">&ldquo;{testimonial.quote}&rdquo;</p>
+    <figure
+      className={`${CARD_WIDTH} mr-6 flex flex-none flex-col gap-5 p-6 border rounded-xl border-zinc-800 bg-zinc-900/30 md:p-8`}
+    >
+      <blockquote className="space-y-3 text-sm leading-relaxed text-zinc-300">
+        {testimonial.quote.map((paragraph, i) => (
+          // Opening mark on every paragraph, closing mark only after the last
+          // one — the standard convention for a multi-paragraph quotation.
+          <p key={i}>
+            &ldquo;{paragraph}
+            {i === lastParagraph && <>&rdquo;</>}
+          </p>
+        ))}
+      </blockquote>
 
-        {testimonial.outcome && (
-          <p className="text-sm text-zinc-500">{testimonial.outcome}</p>
+      {testimonial.outcome && (
+        <p className="text-sm text-zinc-500">{testimonial.outcome}</p>
+      )}
+
+      <figcaption className="flex items-center gap-3 pt-2 mt-auto">
+        {!isAnonymous && testimonial.imageUrl ? (
+          <Image
+            src={testimonial.imageUrl}
+            alt={displayName}
+            width={40}
+            height={40}
+            className="object-cover rounded-full"
+          />
+        ) : (
+          <span className="flex items-center justify-center w-10 h-10 text-sm font-medium border rounded-full text-zinc-300 border-zinc-600 bg-zinc-900">
+            {isAnonymous ? "?" : getInitials(testimonial.name)}
+          </span>
         )}
 
-        <div className="flex items-center gap-3 mt-auto pt-2">
-          {!isAnonymous && testimonial.imageUrl ? (
-            <Image
-              src={testimonial.imageUrl}
-              alt={displayName}
-              width={40}
-              height={40}
-              className="rounded-full object-cover"
-            />
-          ) : (
-            <span className="flex items-center justify-center w-10 h-10 text-sm font-medium border rounded-full text-zinc-300 border-zinc-600 bg-zinc-900">
-              {isAnonymous ? "?" : getInitials(testimonial.name)}
-            </span>
-          )}
-
-          <div>
-            <p className="text-sm font-medium text-zinc-200">{displayName}</p>
-            <p className="text-xs text-zinc-500">{displayRole}</p>
-          </div>
-
-          {!isAnonymous && testimonial.linkUrl && (
-            <Link
-              href={testimonial.linkUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-auto flex items-center gap-1.5 text-xs text-zinc-500 hover:text-zinc-200"
-            >
-              {testimonial.linkUrl.includes("linkedin") ? (
-                <>
-                  <Linkedin size={14} />
-                  View recommendation
-                </>
-              ) : (
-                <>
-                  <Twitter size={14} />
-                  View post
-                </>
-              )}
-            </Link>
-          )}
+        <div>
+          <p className="text-sm font-medium text-zinc-200">{displayName}</p>
+          <p className="text-xs text-zinc-500">
+            {isAnonymous ? (
+              "Details withheld at client's request"
+            ) : (
+              <>
+                {testimonial.role},{" "}
+                {testimonial.companyUrl ? (
+                  <Link
+                    href={testimonial.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    tabIndex={linkTabIndex}
+                    className="underline decoration-zinc-700 underline-offset-2 hover:text-zinc-300 hover:decoration-zinc-500"
+                  >
+                    {testimonial.company}
+                  </Link>
+                ) : (
+                  testimonial.company
+                )}
+              </>
+            )}
+          </p>
         </div>
+
+        {!isAnonymous && testimonial.linkUrl && (
+          <Link
+            href={testimonial.linkUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            tabIndex={linkTabIndex}
+            className="ml-auto flex shrink-0 items-center gap-1.5 text-xs text-zinc-500 hover:text-zinc-200"
+          >
+            {testimonial.linkUrl.includes("linkedin") ? (
+              <>
+                <Linkedin size={14} />
+                View recommendation
+              </>
+            ) : (
+              <>
+                <Twitter size={14} />
+                View post
+              </>
+            )}
+          </Link>
+        )}
+      </figcaption>
+    </figure>
+  );
+}
+
+function TestimonialMarquee({ items }: { items: Testimonial[] }) {
+  if (items.length === 0) return null;
+
+  const repeat = Math.max(1, Math.ceil(MIN_CARDS_PER_HALF / items.length));
+  const half = Array.from({ length: repeat }, () => items).flat();
+
+  return (
+    <div
+      className="relative group overflow-hidden motion-reduce:overflow-x-auto"
+      // Fades both edges so cards enter and leave instead of being sliced off
+      // at a hard border. Prefixed copy is for Safari.
+      style={{
+        WebkitMaskImage:
+          "linear-gradient(to right, transparent, black 2rem, black calc(100% - 2rem), transparent)",
+        maskImage:
+          "linear-gradient(to right, transparent, black 2rem, black calc(100% - 2rem), transparent)",
+      }}
+    >
+      <div
+        // items-start on mobile: one card fills the screen, so equal-height
+        // stretching just adds hundreds of px of dead space under short quotes.
+        // From md up the band shows several cards at once and a shared
+        // attribution baseline reads as deliberate rather than ragged.
+        // No `gap` here on purpose: each card carries its own right margin, so
+        // the track is exactly 2 x (half width) and the -50% keyframe wraps on
+        // an identical frame. A flex gap would leave the halves half-a-gap
+        // apart and the loop would visibly jump once per cycle.
+        className="flex items-start w-max md:items-stretch animate-marquee motion-reduce:animate-none group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused]"
+        style={
+          {
+            "--marquee-duration": `${half.length * SECONDS_PER_CARD}s`,
+          } as CSSProperties
+        }
+      >
+        {half.map((testimonial, i) => (
+          <TestimonialCard key={`lead-${i}`} testimonial={testimonial} />
+        ))}
+        {/* The second half is what -50% lands on. Hidden from assistive tech,
+            and dropped entirely under reduced motion, where the first half
+            becomes a plain horizontally scrollable row. */}
+        {half.map((testimonial, i) => (
+          <div
+            key={`loop-${i}`}
+            aria-hidden
+            className="contents motion-reduce:hidden"
+          >
+            <TestimonialCard testimonial={testimonial} decorative />
+          </div>
+        ))}
       </div>
-    </Card>
+    </div>
   );
 }
 
@@ -157,11 +261,7 @@ export default function ConsultingPage() {
           <h3 className="text-xl font-semibold tracking-tight text-zinc-200 font-display">
             What clients say
           </h3>
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            {testimonials.map((testimonial, i) => (
-              <TestimonialCard key={i} testimonial={testimonial} />
-            ))}
-          </div>
+          <TestimonialMarquee items={testimonials} />
         </section>
 
         {/* Contact */}
