@@ -1,5 +1,5 @@
 "use client";
-import { Github, Mail, Twitter, Linkedin } from "lucide-react";
+import { Github, Linkedin, Mail, Music2, Twitter, Youtube } from "lucide-react";
 import Link from "next/link";
 import { Navigation } from "../components/nav";
 import { Card } from "../components/card";
@@ -31,6 +31,18 @@ const socials = [
 		label: "LinkedIn",
 		handle: profile.linkedin.split("/").pop() || "linkedin",
 	},
+	{
+		icon: <Music2 size={20} />,
+		href: profile.tiktok,
+		label: "TikTok",
+		handle: profile.tiktok.split("/").pop() || "tiktok",
+	},
+	{
+		icon: <Youtube size={20} />,
+		href: profile.youtube,
+		label: "YouTube",
+		handle: profile.youtube.split("/").pop() || "youtube",
+	},
 ];
 
 export default function Example() {
@@ -53,11 +65,11 @@ export default function Example() {
 		<div className=" bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
 			<Navigation />
 			<div className="container flex items-center justify-center min-h-screen px-4 mx-auto">
-				<div className="grid w-full grid-cols-1 gap-8 mx-auto mt-32 sm:mt-0 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
+				<div className="grid w-full grid-cols-1 gap-8 mx-auto mt-32 sm:mt-0 sm:grid-cols-2 lg:grid-cols-3 lg:gap-16">
 					{socials.map((s) => {
 						const isEmail = s.label === "Email";
 						const content = (
-							<div className="p-4 relative flex flex-col items-center gap-4 duration-700 group md:gap-8 md:py-24 lg:pb-48 md:p-16">
+							<div className="p-4 relative flex flex-col items-center gap-4 duration-700 group md:gap-8 md:py-24 md:p-16">
 								<span
 									className="absolute w-px h-2/3 bg-gradient-to-b from-zinc-500 via-zinc-500/50 to-transparent"
 									aria-hidden="true"

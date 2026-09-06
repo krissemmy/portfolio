@@ -12,6 +12,8 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/emmanuel-christopher/",
   twitter: "https://x.com/chris__emma",
   twitterHandle: "@chris__emma",
+  tiktok: "https://www.tiktok.com/@infrawithchris",
+  youtube: "https://www.youtube.com/@krissemmy",
   siteName: "Emmanuel Christopher",
   siteUrl: "https://krissemmy.com", // Update this with your actual domain
 };
