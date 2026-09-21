@@ -1,8 +1,9 @@
 // Indicative USD ranges; all public price placements read from here.
 export const consulting = {
 	reviewPrice: "$250–$400",
+	reviewTurnaround: "usually delivered within 2–4 business days",
 	sprintPrice: "$750–$2,000+",
-	carePrice: "$250–$600+/month",
+	carePrice: "From $250/month",
 	reviewCredit:
 		"If we work together on implementation, I can credit the review fee toward the project.",
 };

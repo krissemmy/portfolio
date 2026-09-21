@@ -91,8 +91,7 @@ const reviewExample = [
 	],
 ];
 
-// Sources: existing project articles and client-authored recommendations.
-// Dailzero's stack is not documented here, so its summary stays at that level.
+// Sources: existing project articles, client recommendations, and owner-confirmed delivery details.
 const caseStudies = [
 	{
 		company: "Carybin",
@@ -102,7 +101,7 @@ const caseStudies = [
 		decision:
 			"Move the workload to a self-hosted Coolify setup on Hetzner, with a setup the team could manage themselves.",
 		result:
-			"A smaller core hosting bill and an end-to-end migration. The CTO’s recommendation highlights the team’s ability to understand and operate the result.",
+			"Core hosting costs fell by more than 95%, with a setup the team could understand and operate themselves.",
 		tradeoff:
 			"Self-hosting transfers responsibility for the server to the team. A lower bill only helps when operating the replacement is manageable.",
 		href: "/projects/case-study-migrating-infrastructure-for-a-startup",
@@ -116,7 +115,7 @@ const caseStudies = [
 		decision:
 			"Move application compute to Hetzner with Dokploy and files to Cloudflare R2, while keeping MongoDB managed to limit the impact of a server failure.",
 		result:
-			"The founder reports lower recurring spend, verified backups, a rollback path, and a live handover with operations and architecture documentation.",
+			"Hosting costs fell by roughly 90%, while MongoDB stayed managed. Production and staging remained separate, with backups and rollback/recovery procedures included in the handover.",
 		tradeoff:
 			"Keeping MongoDB managed preserves a separate failure boundary. Putting every service on the same server would make a server failure harder to recover from.",
 		href: "/projects/how-i-cut-a-startups-infrastructure-cost",
@@ -130,7 +129,7 @@ const caseStudies = [
 		decision:
 			"Own the migration and communicate each step clearly, as described in the founder’s recommendation below.",
 		result:
-			"The founder reports a migration without downtime and a resulting setup that is faster, more reliable, and easier to manage.",
+			"Production and staging were migrated without downtime, with database backups configured and operational documentation handed over to the founder.",
 		tradeoff:
 			"Moving hosting also moves operational responsibility. Clear communication helps the founder understand what is changing and what the team will own afterward.",
 		href: "#client-feedback",
@@ -176,8 +175,8 @@ export default function ConsultingPage() {
 							</Link>
 						</div>
 						<p className="mt-4 text-sm text-zinc-400">
-							Review: {consulting.reviewPrice} USD · Agree the scope before
-							starting.
+							{consulting.reviewPrice} · {consulting.reviewTurnaround}. Scope
+							agreed before starting.
 						</p>
 						<p className="mt-7 text-sm text-zinc-400">
 							Migration and production work for{" "}
@@ -195,7 +194,10 @@ export default function ConsultingPage() {
 						aria-label="Example infrastructure review"
 					>
 						<p className="text-xs tracking-widest uppercase text-zinc-400">
-							Example review · fictional team
+							Sample review output
+						</p>
+						<p className="mt-1 text-xs text-zinc-400">
+							Example based on a fictional early-stage team.
 						</p>
 						<h2 className="mt-3 text-xl text-zinc-100 font-display">
 							A sensible stack can still have gaps.
@@ -264,7 +266,12 @@ export default function ConsultingPage() {
 								<h3 className={styles.offerTitle}>
 									Lean Infrastructure Review
 								</h3>
-								<p className={styles.price}>{consulting.reviewPrice}</p>
+								<p className={styles.price}>
+									{consulting.reviewPrice}
+									<span className="text-sm text-zinc-400">
+										{" "}· {consulting.reviewTurnaround}
+									</span>
+								</p>
 							</div>
 							<div className="space-y-4 text-sm leading-6 text-zinc-300">
 								<p>
@@ -322,18 +329,17 @@ export default function ConsultingPage() {
 							</div>
 							<div className="space-y-4 text-sm leading-6 text-zinc-300">
 								<p>
-									Ongoing help with infrastructure health, backup checks,
-									deployment issues, small changes, upgrades, cost and capacity
-									reviews, observability, and documentation.
+									Light-touch ongoing infrastructure help for small systems:
+									health checks, backup checks, deployment issues, small changes,
+									upgrades, cost reviews, observability, and documentation.
 								</p>
 								<p>
 									We agree the work, availability, and incident-support limits
-									up front. A way to share infrastructure ownership while your
-									team focuses on the product.
+									up front. Larger scopes are quoted based on workload,
+									availability, and the level of support required.
 								</p>
 								<p className="text-zinc-400">
-									No 24/7 coverage or enterprise SLA. Monthly scope determines
-									the fee.
+									No 24/7 coverage or enterprise SLA.
 								</p>
 							</div>
 						</article>
