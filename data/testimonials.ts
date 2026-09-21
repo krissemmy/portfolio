@@ -23,8 +23,7 @@ export interface Testimonial {
 
 // To add a testimonial, append an object here following the Testimonial
 // shape above. Only `name`, `role`, `company`, and `quote` are required.
-// The /consulting marquee sizes and paces itself off this array's length,
-// so adding entries needs no layout changes.
+// /consulting renders each recommendation once, with expandable supporting text.
 export const testimonials: Testimonial[] = [
   {
     name: "Favour Anwara",

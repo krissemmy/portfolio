@@ -1,0 +1,16 @@
+.page :is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 2px solid #e4e4e7;
+  outline-offset: 4px;
+}
+.page section[id] { scroll-margin-top: 6rem; }
+.skipLink { position: fixed; left: 1.5rem; top: -5rem; z-index: 60; padding: .75rem 1rem; background: #fafafa; color: #18181b; }
+.skipLink:focus { top: 1rem; }
+.section { @apply py-12 border-b border-zinc-800 md:py-16; }
+.heading { @apply text-2xl tracking-tight text-zinc-100 font-display sm:text-3xl; }
+.list { @apply mt-4 space-y-3 text-sm leading-6 text-zinc-400; }
+.offer { @apply grid gap-5 py-8 lg:grid-cols-[1fr_2fr] lg:gap-16; }
+.eyebrow { @apply text-xs tracking-widest uppercase text-zinc-400; }
+.offerTitle { @apply mt-3 text-xl text-zinc-100 font-display; }
+.price { @apply mt-3 text-lg text-zinc-300; }
+.primaryLink { @apply inline-flex items-center justify-center px-5 py-3 text-sm font-medium text-zinc-900 bg-zinc-100 rounded-lg hover:bg-white; }
+.textLink { @apply text-sm text-zinc-200 underline decoration-zinc-600 underline-offset-4 hover:text-white; }
