@@ -39,6 +39,11 @@ export const Project = defineDocumentType(() => ({
 		category: {
 			type: "string",
 		},
+		kind: {
+			type: "enum",
+			options: ["Professional work", "Client engagement", "Personal project", "Personal lab", "Tutorial", "Open-source contribution"],
+			required: true,
+		},
 		order: {
 			type: "number",
 		},

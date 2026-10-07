@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { allProjects } from "contentlayer/generated";
 import { Mdx } from "@/app/components/mdx";
 import { Header } from "./header";
+import { pageMetadata } from "@/util/metadata";
 import "./mdx.css";
 
 export const revalidate = 60;
@@ -20,21 +21,27 @@ export async function generateStaticParams(): Promise<Props["params"][]> {
     }));
 }
 
+export function generateMetadata({ params }: Props) {
+  const project = allProjects.find((project) => project.published && project.slug === params.slug);
+  if (!project) notFound();
+  return pageMetadata(project.title, project.description, `/projects/${project.slug}`);
+}
+
 export default async function PostPage({ params }: Props) {
   const slug = params?.slug;
-  const project = allProjects.find((project) => project.slug === slug);
+  const project = allProjects.find((project) => project.published && project.slug === slug);
 
   if (!project) {
     notFound();
   }
 
   return (
-    <div className="bg-zinc-50 min-h-screen">
+    <main className="bg-zinc-50 min-h-screen">
       <Header project={project} />
 
       <article className="px-4 py-12 mx-auto prose prose-zinc prose-quoteless">
         <Mdx code={project.body.code} />
       </article>
-    </div>
+    </main>
   );
 }

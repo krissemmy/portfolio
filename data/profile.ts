@@ -2,7 +2,7 @@ export const profile = {
   name: "Emmanuel Christopher",
   // Short line used for metadata / SEO and social cards.
   headline:
-    "Cloud / DevOps + Technical Support Engineer — infrastructure, APIs, reliability, and developer-facing systems",
+    "Cloud Platform / DevOps Engineer working across production infrastructure, AI infrastructure, deployments, reliability, and debugging.",
   email: "krissemmy17@gmail.com",
   // Separate from `email`: recruiters and general contact use the personal
   // address, client/consulting inquiries go here. Also the verified Resend
@@ -15,94 +15,53 @@ export const profile = {
   tiktok: "https://www.tiktok.com/@infrawithchris",
   youtube: "https://www.youtube.com/@krissemmy",
   siteName: "Emmanuel Christopher",
-  siteUrl: "https://krissemmy.com", // Update this with your actual domain
+  siteUrl: "https://www.krissemmy.com",
 };
 
-// Hero copy for the landing page.
 export const hero = {
-  title:
-    "Cloud / DevOps Engineer for Reliable Infrastructure, APIs, and Developer Support",
+  title: "Cloud Platform / DevOps Engineer",
   subtitle:
-    "I build and support production systems across cloud infrastructure, deployments, observability, APIs, databases, and developer tooling. My background spans AI infrastructure, DevOps, data systems, and blockchain/RPC operations.....but the common thread is debugging complex systems, improving reliability, and making technical issues easier to resolve.",
+    "I own production and AI infrastructure at RestoreAI, a small AI startup. I build deployment workflows, operate GPU workloads, and debug the systems the product depends on.",
+  experience:
+    "Previously at GlueX, I cut AWS spend from about $25,000 to $8,500 per month (66%) and improved request latency through infrastructure and performance tuning. My consulting work includes completed migrations for Carybin, Letsdap, and Dailzero.",
 };
 
-// About / summary paragraphs.
 export const about = [
-  "I work on the parts of software that have to stay up: cloud environments, deployment pipelines, monitoring, APIs, and the data systems behind them. Day to day that means provisioning infrastructure, shipping changes safely, watching production, and digging into whatever breaks until I understand the root cause.",
-  "A lot of that work is really support and debugging — reproducing an issue, reading logs and metrics, isolating a degraded dependency, and writing it up clearly so the next person can act on it. I've done this across AI infrastructure, DevOps, data pipelines, and high-uptime blockchain/RPC environments, which are some of the most demanding production systems I've operated.",
+  "My work sits between product development and day-to-day operations. At RestoreAI, that includes turning release requirements into repeatable workflows and making access, recovery, and compliance evidence part of normal infrastructure work.",
+  "I bring a developer-support mindset to that responsibility: reproduce the issue, follow the request through logs and metrics, and leave the next engineer with a clear explanation. Earlier work in data pipelines and API/RPC operations taught me to look beyond the server when a system behaves badly.",
 ];
 
-// Two recruiter-facing paths so each audience can self-select quickly.
-export const tracks = [
-  {
-    audience: "For Cloud / DevOps & Infrastructure teams",
-    summary:
-      "I own infrastructure end to end and keep production reliable and cost-efficient.",
-    points: [
-      "Infrastructure as Code with Terraform; provisioning on AWS, Nebius, and Hetzner",
-      "CI/CD pipelines, containerization, and Kubernetes deployments",
-      "Observability stacks (Prometheus, Grafana, Loki, Mimir, Alloy) with alerting and SLOs",
-      "Cost optimization — e.g. cutting a startup's hosting from ~$300/mo to ~€8/mo",
-      "Reliability work: uptime, capacity, snapshots, recovery, and zero-downtime upgrades",
-    ],
-  },
-  {
-    audience: "For Support / Developer Support teams",
-    summary:
-      "I debug production issues, communicate clearly, and make problems reproducible.",
-    points: [
-      "Troubleshooting APIs and RPC endpoints: latency, errors, and degraded upstreams",
-      "Incident response, escalation, and root-cause investigation under pressure",
-      "Clear written communication and documentation engineers can act on",
-      "Reproducible findings — turning vague reports into concrete steps and evidence",
-      "Building diagnostic tooling so others can self-serve (used by 400+ engineers)",
-    ],
-  },
-];
-
-// Skills grouped for fast scanning by recruiters.
 export const skills = [
   {
-    category: "Cloud & Infrastructure",
-    items: ["AWS", "GCP", "Nebius", "Hetzner", "Terraform", "Docker", "Kubernetes", "Coolify", "Dokploy"],
+    category: "Cloud & platform operations",
+    items: ["AWS", "Nebius", "Hetzner", "Linux", "Docker", "Coolify", "Dokploy"],
   },
   {
-    category: "CI/CD & Automation",
-    items: ["GitHub Actions", "GitOps", "Helm", "Bash", "Python"],
+    category: "AI infrastructure",
+    items: ["GPU infrastructure", "Model serving", "NVIDIA NIM / VSS", "GPU workload sizing", "Model runtime testing"],
   },
   {
-    category: "Observability & Reliability",
-    items: [
-      "Prometheus",
-      "Grafana",
-      "Loki",
-      "Mimir",
-      "Alloy",
-      "Alerting",
-      "Incident response",
-    ],
+    category: "Infrastructure & deployments",
+    items: ["Terraform", "Terragrunt", "GitHub Actions", "Deployment automation", "Preview environments"],
   },
   {
-    category: "APIs & Debugging",
-    items: [
-      "REST",
-      "JSON-RPC",
-      "Latency analysis",
-      "Endpoint diagnostics",
-      "Reproducible bug reports",
-      "Blockchain RPC debugging",
-    ],
+    category: "Reliability & debugging",
+    items: ["Prometheus", "Grafana", "Loki", "OpenTelemetry", "Incident response", "JSON-RPC", "API diagnostics"],
   },
   {
-    category: "Data Systems",
-    items: ["PostgreSQL", "BigQuery", "dlt", "ETL / ELT", "Airflow"],
+    category: "Access & readiness",
+    items: ["AWS IAM", "SSM", "Tailscale", "SOC 2 technical readiness", "Evidence automation", "Backup & restore validation"],
   },
   {
-    category: "AI Agents & Workflows",
-    items: ["Claude Code", "Codex", "Cursor", "MCP", "Agent workflows"],
+    category: "Data & languages",
+    items: ["PostgreSQL", "MongoDB", "Redis", "BigQuery", "dlt", "Python", "SQL", "Bash"],
   },
   {
-    category: "Languages",
-    items: ["Python", "SQL", "Bash"],
+    category: "Personal projects & labs",
+    items: ["Kubernetes", "Helm", "Alloy", "Mimir"],
+  },
+  {
+    category: "Coding tools",
+    items: ["Claude Code", "Codex", "Cursor"],
   },
 ];

@@ -8,6 +8,7 @@ type Props = {
 		url?: string;
 		title: string;
 		description: string;
+		kind: string;
 		repository?: string;
 	};
 };
@@ -52,7 +53,7 @@ export const Header: React.FC<Props> = ({ project }) => {
 			>
 				<div className="container flex flex-row-reverse items-center justify-between p-6 mx-auto">
 					<div className="flex justify-between gap-8">
-						<Link target="_blank" href="https://x.com/chris__emma">
+						<Link target="_blank" href="https://x.com/chris__emma" aria-label="X profile">
 							<Twitter
 								className={`w-6 h-6 duration-200 hover:font-medium ${
 									isIntersecting
@@ -61,7 +62,7 @@ export const Header: React.FC<Props> = ({ project }) => {
 								} `}
 							/>
 						</Link>
-						<Link target="_blank" href="https://github.com/krissemmy">
+						<Link target="_blank" href="https://github.com/krissemmy" aria-label="GitHub profile">
 							<Github
 								className={`w-6 h-6 duration-200 hover:font-medium ${
 									isIntersecting
@@ -74,6 +75,7 @@ export const Header: React.FC<Props> = ({ project }) => {
 
 					<Link
 						href="/projects"
+						aria-label="Back to projects"
 						className={`duration-200 hover:font-medium ${
 							isIntersecting
 								? " text-zinc-400 hover:text-zinc-100"
@@ -87,6 +89,7 @@ export const Header: React.FC<Props> = ({ project }) => {
 			<div className="container mx-auto relative isolate overflow-hidden  py-24 sm:py-32">
 				<div className="mx-auto max-w-7xl px-6 lg:px-8 text-center flex flex-col items-center">
 					<div className="mx-auto max-w-2xl lg:mx-0">
+						<p className="mb-4 text-sm text-zinc-400">{project.kind}</p>
 						<h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl font-display">
 							{project.title}
 						</h1>

@@ -1,129 +1,28 @@
-"use client";
-import { Github, Linkedin, Mail, Music2, Twitter, Youtube } from "lucide-react";
 import Link from "next/link";
 import { Navigation } from "../components/nav";
-import { Card } from "../components/card";
-import { profile } from "@/data/profile";
-import { useState } from "react";
+import { pageMetadata } from "@/util/metadata";
+import { ContactMethods } from "./contact-methods";
 
-const socials = [
-	{
-		icon: <Twitter size={20} />,
-		href: profile.twitter,
-		label: "Twitter",
-		handle: profile.twitterHandle,
-	},
-	{
-		icon: <Mail size={20} />,
-		href: `mailto:${profile.email}`,
-		label: "Email",
-		handle: profile.email,
-	},
-	{
-		icon: <Github size={20} />,
-		href: profile.github,
-		label: "Github",
-		handle: profile.github.split("/").pop() || "github",
-	},
-	{
-		icon: <Linkedin size={20} />,
-		href: profile.linkedin,
-		label: "LinkedIn",
-		handle: profile.linkedin.split("/").pop() || "linkedin",
-	},
-	{
-		icon: <Music2 size={20} />,
-		href: profile.tiktok,
-		label: "TikTok",
-		handle: profile.tiktok.split("/").pop() || "tiktok",
-	},
-	{
-		icon: <Youtube size={20} />,
-		href: profile.youtube,
-		label: "YouTube",
-		handle: profile.youtube.split("/").pop() || "youtube",
-	},
-];
+export const metadata = pageMetadata(
+  "Contact for Infrastructure Roles & Consulting",
+  "Contact Emmanuel Christopher about cloud and platform engineering roles or startup infrastructure consulting. Email, LinkedIn, and GitHub. Based in UTC+1.",
+  "/contact",
+);
 
-export default function Example() {
-	const [copied, setCopied] = useState(false);
-
-	const handleCopyEmail = async (e: React.MouseEvent) => {
-		e.preventDefault();
-		e.stopPropagation();
-		try {
-			await navigator.clipboard.writeText(profile.email);
-			setCopied(true);
-			setTimeout(() => setCopied(false), 2000);
-		} catch (err) {
-			// Fallback: open mailto if clipboard fails
-			window.location.href = `mailto:${profile.email}`;
-		}
-	};
-
-	return (
-		<div className=" bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
-			<Navigation />
-			<div className="container flex items-center justify-center min-h-screen px-4 mx-auto">
-				<div className="grid w-full grid-cols-1 gap-8 mx-auto mt-32 sm:mt-0 sm:grid-cols-2 lg:grid-cols-3 lg:gap-16">
-					{socials.map((s) => {
-						const isEmail = s.label === "Email";
-						const content = (
-							<div className="p-4 relative flex flex-col items-center gap-4 duration-700 group md:gap-8 md:py-24 md:p-16">
-								<span
-									className="absolute w-px h-2/3 bg-gradient-to-b from-zinc-500 via-zinc-500/50 to-transparent"
-									aria-hidden="true"
-								/>
-								<span className="relative z-10 flex items-center justify-center w-12 h-12 text-sm duration-1000 border rounded-full text-zinc-200 group-hover:text-white group-hover:bg-zinc-900 border-zinc-500 bg-zinc-900 group-hover:border-zinc-200 drop-shadow-orange">
-									{s.icon}
-								</span>
-								<div className="z-10 flex flex-col items-center">
-									{isEmail ? (
-										<span
-											onClick={handleCopyEmail}
-											title={s.handle}
-											className="lg:text-xl font-medium duration-150 xl:text-3xl text-zinc-200 group-hover:text-white font-display cursor-pointer"
-											style={{
-												maxWidth: "100%",
-												textAlign: "center",
-												overflowWrap: "anywhere",
-												wordBreak: "break-word",
-												lineHeight: 1.2,
-											}}
-										>
-											{s.handle}
-											{copied && (
-												<span className="block text-xs text-zinc-400 mt-1">
-													Copied!
-												</span>
-											)}
-										</span>
-									) : (
-										<span className="lg:text-xl font-medium duration-150 xl:text-3xl text-zinc-200 group-hover:text-white font-display">
-											{s.handle}
-										</span>
-									)}
-									<span className="mt-4 text-sm text-center duration-1000 text-zinc-400 group-hover:text-zinc-200">
-										{s.label}
-									</span>
-								</div>
-							</div>
-						);
-
-						return (
-							<Card key={s.label}>
-								{isEmail ? (
-									<div>{content}</div>
-								) : (
-									<Link href={s.href} target="_blank">
-										{content}
-									</Link>
-								)}
-							</Card>
-						);
-					})}
-				</div>
-			</div>
-		</div>
-	);
+export default function ContactPage() {
+  return (
+    <div className="min-h-screen bg-gradient-to-tl from-zinc-900/0 via-zinc-900 to-zinc-900/0">
+      <Navigation />
+      <main className="px-6 pt-24 pb-16 mx-auto max-w-7xl lg:px-8 lg:pt-32">
+        <h1 className="text-3xl font-bold text-zinc-100 sm:text-4xl">Get in touch</h1>
+        <p className="max-w-2xl mt-4 leading-7 text-zinc-400">
+          Contact me about cloud and platform engineering roles, or help with your startup&apos;s infrastructure.
+          For a scoped review or migration, visit{" "}
+          <Link href="/consulting" className="text-zinc-200 underline underline-offset-4">infrastructure consulting</Link>.
+        </p>
+        <p className="mt-3 text-sm text-zinc-400">Timezone: UTC+1</p>
+        <ContactMethods />
+      </main>
+    </div>
+  );
 }

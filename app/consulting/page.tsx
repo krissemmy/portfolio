@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
+import portrait from "@/public/images/emmanuel-christopher.webp";
 import { Navigation } from "../components/nav";
 import { profile } from "@/data/profile";
 import { consulting } from "@/data/consulting";
@@ -101,7 +103,7 @@ const caseStudies = [
 		decision:
 			"Move the workload to a self-hosted Coolify setup on Hetzner, with a setup the team could manage themselves.",
 		result:
-			"Core hosting costs fell by more than 95%, with a setup the team could understand and operate themselves.",
+			"Carybin's core hosting went from about $300/month to €8/month, with a setup the team could understand and operate themselves.",
 		tradeoff:
 			"Self-hosting transfers responsibility for the server to the team. A lower bill only helps when operating the replacement is manageable.",
 		href: "/projects/case-study-migrating-infrastructure-for-a-startup",
@@ -115,7 +117,7 @@ const caseStudies = [
 		decision:
 			"Move application compute to Hetzner with Dokploy and files to Cloudflare R2, while keeping MongoDB managed to limit the impact of a server failure.",
 		result:
-			"Hosting costs fell by roughly 90%, while MongoDB stayed managed. Production and staging remained separate, with backups and rollback/recovery procedures included in the handover.",
+			"Letsdap's founder reports roughly 90% lower hosting costs and 65% lower total recurring infrastructure spend. MongoDB stayed managed, with separate environments and recovery procedures included in the handover.",
 		tradeoff:
 			"Keeping MongoDB managed preserves a separate failure boundary. Putting every service on the same server would make a server failure harder to recover from.",
 		href: "/projects/how-i-cut-a-startups-infrastructure-cost",
@@ -123,17 +125,17 @@ const caseStudies = [
 	},
 	{
 		company: "Dailzero",
-		heading: "Make a migration understandable from start to finish.",
+		heading: "Migrate the workload and document how to operate it.",
 		situation:
 			"The founder needed help carrying out a full infrastructure migration.",
 		decision:
-			"Own the migration and communicate each step clearly, as described in the founder’s recommendation below.",
+			"Migrate the application and PostgreSQL/pgvector workloads, check data integrity, and document deployment and recovery procedures.",
 		result:
-			"Production and staging were migrated without downtime, with database backups configured and operational documentation handed over to the founder.",
+			"Production and staging were migrated, scheduled database backups were verified, and a restore from Cloudflare R2 was tested in staging. The founder received operating documentation.",
 		tradeoff:
 			"Moving hosting also moves operational responsibility. Clear communication helps the founder understand what is changing and what the team will own afterward.",
-		href: "#client-feedback",
-		link: "Read the founder’s account",
+		href: "/projects/dailzero-infrastructure-migration",
+		link: "Read the migration and handover case study",
 	},
 ];
 
@@ -150,16 +152,17 @@ export default function ConsultingPage() {
 					aria-labelledby="intro-title"
 				>
 					<div>
-						<p className="text-sm text-zinc-400">
-							Independent infrastructure consulting · {profile.name}
-						</p>
+						<div className="flex items-center gap-4">
+							<Image src={portrait} alt="Emmanuel Christopher" width={528} height={645} sizes="64px" className="h-auto w-16 shrink-0 rounded-lg" />
+							<p className="text-sm leading-6 text-zinc-400">
+								Independent infrastructure consulting<br />{profile.name}
+							</p>
+						</div>
 						<h1
 							id="intro-title"
 						className="max-w-2xl mt-5 text-3xl leading-tight tracking-tight text-zinc-100 font-display sm:text-4xl xl:text-5xl"
 						>
-							Production infrastructure.
-							<br />
-							Before you need an infrastructure engineer.
+							Production infrastructure for startups before they need a full-time infrastructure engineer.
 						</h1>
 						<p className="max-w-xl mt-6 leading-7 text-zinc-300">
 							For 3–10 person startups with a product in production and a

@@ -4,6 +4,14 @@ import type { Project } from "contentlayer/generated";
 import { Navigation } from "../components/nav";
 import { Card } from "../components/card";
 import { Article } from "./article";
+import { SelectedWork } from "../components/selected-work";
+import { pageMetadata } from "@/util/metadata";
+
+export const metadata = pageMetadata(
+  "Selected Work & Project Archive",
+  "Production and AI infrastructure at RestoreAI, startup consulting results, and KraiNode. Browse client work, personal projects, tutorials, and open-source contributions.",
+  "/projects",
+);
 
 export const revalidate = 60;
 
@@ -26,7 +34,8 @@ export default async function ProjectsPage() {
   const groups: Record<string, Project[]> = {};
   for (const project of allPublished) {
     const key = project.category ?? UNCATEGORIZED;
-    (groups[key] ||= []).push(project);
+    groups[key] ||= [];
+    groups[key].push(project);
   }
 
   const sortGroup = (list: Project[]) =>
@@ -46,18 +55,21 @@ export default async function ProjectsPage() {
   return (
     <div className="relative pb-16">
       <Navigation />
-      <div className="px-6 pt-20 mx-auto space-y-12 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32">
+      <main className="px-6 pt-20 mx-auto space-y-12 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32">
         <div className="max-w-2xl mx-auto lg:mx-0">
-          <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
-            Projects
-          </h2>
+          <h1 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
+            Work & projects
+          </h1>
           <p className="mt-4 text-zinc-400">
-            Some of my work across cloud infrastructure, deployment and developer
-            tooling, data systems, and high-uptime node operations — building,
-            operating, and debugging production systems.
+            Recent platform work and client results, followed by the wider archive.
+            Each entry identifies the context in which the work was done.
           </p>
         </div>
-        <div className="w-full h-px bg-zinc-800" />
+        <SelectedWork />
+        <div className="pt-10 border-t border-zinc-800">
+          <h2 className="text-2xl font-display text-zinc-100">Project archive</h2>
+          <p className="mt-3 text-zinc-400">Professional work, client engagements, and independent learning.</p>
+        </div>
 
         {orderedCategories.map((category) => (
           <section key={category} className="space-y-6">
@@ -73,7 +85,7 @@ export default async function ProjectsPage() {
             </div>
           </section>
         ))}
-      </div>
+      </main>
     </div>
   );
 }

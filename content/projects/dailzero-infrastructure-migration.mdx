@@ -1,0 +1,33 @@
+---
+title: "Dailzero: Infrastructure Migration and Operational Handover"
+description: Migrated Dailzero's application and PostgreSQL/pgvector workloads, verified a staging restore, and documented deployment and recovery procedures.
+date: "2026-08-20"
+category: Cloud / DevOps / Infrastructure / Compliance
+kind: Client engagement
+order: 1
+published: true
+---
+
+## The problem
+
+Dailzero needed to move its infrastructure and give the founder a clear way to operate the result. The database migration also had to preserve PostgreSQL extension compatibility and existing application data.
+
+## My contribution
+
+I handled the move to a Hetzner and Dokploy setup with production and staging environments, including the migration from Neon to PostgreSQL with pgvector.
+
+Before the database cutover, I checked version and extension compatibility, adapted the application's database connection, and rehearsed a dump and restore. The checks covered row counts, foreign keys, vector data, and migration history.
+
+I configured scheduled database backups to Cloudflare R2 and verified a restore into the staging environment. I also documented deployment, rollback, backup, and recovery procedures for the founder.
+
+## What was verified
+
+The August 2026 handover records healthy application endpoints, scheduled backups writing to R2, and a successful staging restore with data and expected database structures present.
+
+That restore was tested in staging. It is not evidence of a production restore or a complete disaster-recovery exercise. The case study makes no quantified savings or measured downtime claim.
+
+## The tradeoff
+
+Moving from managed services transfers maintenance and recovery work to the team. The handover therefore covered how to operate the system and distinguish an application rollback from a database restore, not just how to deploy it once.
+
+[Read the founder's recommendation](/consulting#client-feedback).

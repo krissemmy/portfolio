@@ -6,6 +6,7 @@ import { Analytics } from "./components/analytics";
 import { profile } from "@/data/profile";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(profile.siteUrl),
   title: {
     default: profile.siteName,
     template: `%s | ${profile.siteName}`,
@@ -18,9 +19,10 @@ export const metadata: Metadata = {
     siteName: profile.siteName,
     images: [
       {
-        url: `${profile.siteUrl}/og.png`,
-        width: 1920,
-        height: 1080,
+        url: `${profile.siteUrl}/og`,
+        width: 1200,
+        height: 630,
+        alt: `${profile.name}, Cloud Platform / DevOps Engineer`,
       },
     ],
     locale: "en-US",

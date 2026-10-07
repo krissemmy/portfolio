@@ -8,3 +8,10 @@
   }
 } 
 
+
+@layer base {
+  :is(a, button, input, select, textarea, summary):focus-visible {
+    outline: 2px solid #a1a1aa;
+    outline-offset: 4px;
+  }
+}
