@@ -5,7 +5,7 @@ Reviewed 7 October 2026. This is an editorial record, not a live infrastructure 
 | Claim | Source and treatment |
 | --- | --- |
 | RestoreAI scope, GPU/NIM/VSS, environment workflows, Terraform/Terragrunt, SSM/Tailscale, SOC 2 Type II readiness | Owner's instructions for this update, supported by the linked DevOps resume. Public copy covers responsibilities without internal topology. Readiness is not certification. |
-| RestoreAI unused Microsoft Entra service, $300/month | Owner-confirmed in the update request. Kept separate from other employers and consulting savings. |
+| RestoreAI dev/staging AWS spend, roughly $700/day to $200/day | Current DevOps resume, rechecked 7 October 2026. GPU right-sizing, workload placement, and unused-resource cleanup. Applies only to dev/staging AWS spend; no total-company or annual-savings extrapolation. This replaces Microsoft Entra cleanup as the featured outcome. |
 | GlueX AWS spend, about $25k to $8.5k/month (66%) | Both current DevOps and general resumes give these figures (modified 29 September 2026). Owner explicitly confirmed using the resumes on 7 October. No alternate figure inferred. |
 | GlueX latency improvement | The two current resumes omit a percentile label. Published qualitatively; numerical latency needs the measurement definition and percentile before use. |
 | Carybin core hosting, about $300/month to €8/month | Existing migration entry and Carybin recommendation in `data/testimonials.ts`. Original currencies and approximate scope retained; not converted into a total-spend percentage. |

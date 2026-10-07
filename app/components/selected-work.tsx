@@ -22,7 +22,7 @@ export function SelectedWork() {
               </div>
             </div>
             <dl className="space-y-3 text-sm leading-6">
-              {[["Problem", work.problem], ["My contribution", work.contribution], ["Outcome", work.outcome]].map(([label, text]) => (
+              {work.details.map(({ label, text }) => (
                 <div key={label}>
                   <dt className="font-medium text-zinc-200">{label}</dt>
                   <dd className="text-zinc-400">{text}</dd>
