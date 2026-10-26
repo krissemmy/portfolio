@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: profile.siteName,
     images: [
       {
-        url: `${profile.siteUrl}/og`,
+        url: `${profile.siteUrl}/og/home.png`,
         width: 1200,
         height: 630,
         alt: `${profile.name}, Cloud Platform / DevOps Engineer`,

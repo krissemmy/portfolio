@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 		type: "website",
 		images: [
 			{
-				url: `${url}/opengraph-image`,
+				url: `${profile.siteUrl}/og/consulting.png`,
 				width: 1200,
 				height: 630,
 				alt: "Infrastructure for early-stage startups. Lean. Reliable. Recoverable.",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 		card: "summary_large_image",
 		title: `${title} | ${profile.name}`,
 		description,
-		images: [`${url}/opengraph-image`],
+		images: [`${profile.siteUrl}/og/consulting.png`],
 	},
 };
 

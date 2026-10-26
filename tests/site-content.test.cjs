@@ -1,5 +1,5 @@
 const assert = require("node:assert/strict");
-const { readdirSync, readFileSync } = require("node:fs");
+const { existsSync, readdirSync, readFileSync } = require("node:fs");
 const path = require("node:path");
 const { test } = require("node:test");
 const vm = require("node:vm");
@@ -46,4 +46,23 @@ test("sitemap includes public pages and published projects, excluding drafts", (
     "https://www.krissemmy.com/contact",
     "https://www.krissemmy.com/projects/published-work",
   ]);
+});
+
+test("static export drops the edge image route, ISR, and the page-view counter", () => {
+  for (const file of [
+    "pages/api/incr.ts",
+    "app/api/consulting/route.ts",
+    "app/og/route.tsx",
+    "app/consulting/opengraph-image.tsx",
+    "app/projects/[slug]/view.tsx",
+  ]) {
+    assert.equal(existsSync(path.join(root, file)), false, file);
+  }
+  assert.doesNotMatch(readFileSync(path.join(root, "app/projects/page.tsx"), "utf8"), /revalidate/);
+  assert.doesNotMatch(readFileSync(path.join(root, "app/projects/[slug]/page.tsx"), "utf8"), /revalidate/);
+  assert.match(readFileSync(path.join(root, "app/consulting/page.tsx"), "utf8"), /\/og\/consulting\.png/);
+  assert.doesNotMatch(readFileSync(path.join(root, "app/consulting/page.tsx"), "utf8"), /opengraph-image/);
+  const config = readFileSync(path.join(root, "next.config.mjs"), "utf8");
+  assert.match(config, /output:\s*"export"/);
+  assert.match(config, /unoptimized:\s*true/);
 });

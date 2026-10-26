@@ -5,13 +5,13 @@ import { Header } from "./header";
 import { pageMetadata } from "@/util/metadata";
 import "./mdx.css";
 
-export const revalidate = 60;
-
 type Props = {
   params: {
     slug: string;
   };
 };
+
+export const dynamicParams = false;
 
 export async function generateStaticParams(): Promise<Props["params"][]> {
   return allProjects
