@@ -8,13 +8,13 @@ const ts = require("typescript");
 const root = path.resolve(__dirname, "..");
 
 // Compile the actual route in isolation; no real provider calls or credentials.
-function load(file, overrides = {}, env = {}) {
+function load(file, overrides = {}, env = {}, globals = {}) {
 	const filename = path.resolve(root, file);
 	const exports = {};
 	const code = ts.transpileModule(readFileSync(filename, "utf8"), {
 		compilerOptions: {
 			module: ts.ModuleKind.CommonJS,
-			target: ts.ScriptTarget.ES2020,
+			target: ts.ScriptTarget.ES2022,
 		},
 	}).outputText;
 	vm.runInNewContext(
@@ -24,14 +24,17 @@ function load(file, overrides = {}, env = {}) {
 			Request,
 			Response,
 			URL,
+			Uint8Array,
+			TextDecoder,
 			process: { env },
 			console: { warn() {}, error() {} },
+			fetch: globals.fetch ?? fetch,
 			require(name) {
 				if (overrides[name]) return overrides[name];
 				const target = name.startsWith("@/")
 					? path.join(root, name.slice(2))
 					: path.resolve(path.dirname(filename), name);
-				return load(`${target}.ts`, overrides, env);
+				return load(`${target}.ts`, overrides, env, globals);
 			},
 		},
 		{ filename },
@@ -98,18 +101,36 @@ test("required values, email, lengths, URLs, and option boundaries are enforced"
 	);
 });
 
-function route(send, configured = true) {
-	return load(
-		"app/api/consulting/route.ts",
-		{
-			resend: {
-				Resend: class {
-					emails = { send };
-				},
+function route(send, configured = true, extraEnv = {}) {
+	const env = {
+		...(configured ? { RESEND_API_KEY: "test-only-key" } : {}),
+		CONSULTING_RATE_LIMITER: {
+			async limit() {
+				return { success: true };
 			},
 		},
-		configured ? { RESEND_API_KEY: "test-only-key" } : {},
-	).POST;
+		...extraEnv,
+	};
+	const worker = load("src/worker.ts", {}, env, {
+		async fetch(_url, init) {
+			const payload = JSON.parse(init.body);
+			const result = await send(payload);
+			if (result?.error) {
+				return new Response(
+					JSON.stringify({
+						name: "validation_error",
+						message: result.error.message || "Rejected",
+					}),
+					{ status: 422, headers: { "content-type": "application/json" } },
+				);
+			}
+			return new Response(JSON.stringify({ id: "email_test" }), {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			});
+		},
+	}).default;
+	return (request) => worker.fetch(request, env);
 }
 
 function request(body) {
@@ -188,4 +209,66 @@ test("missing configuration and provider failures never report success", async (
 		assert.equal(response.status, 502);
 		assert.equal((await response.json()).ok, undefined);
 	}
+});
+
+test("the rate limit blocks delivery and other API methods stay closed", async () => {
+	let calls = 0;
+	const limited = route(
+		async () => {
+			calls += 1;
+			return { error: null };
+		},
+		true,
+		{
+			CONSULTING_RATE_LIMITER: {
+				async limit() {
+					return { success: false };
+				},
+			},
+		},
+	);
+	const response = await limited(request(minimum));
+	assert.equal(response.status, 429);
+	assert.equal((await response.json()).ok, undefined);
+	assert.equal(response.headers.get("retry-after"), "60");
+	assert.equal(calls, 0);
+
+	const worker = load("src/worker.ts", {}, {}, {
+		fetch() {
+			throw new Error("no email");
+		},
+	}).default;
+	assert.equal(
+		(await worker.fetch(new Request("https://example.com/api/consulting"))).status,
+		405,
+	);
+	assert.equal(
+		(
+			await worker.fetch(
+				new Request("https://example.com/api/incr", {
+					method: "POST",
+					body: "{}",
+				}),
+			)
+		).status,
+		404,
+	);
+});
+
+test("page metadata points at one pre-rendered png per path", () => {
+	const { ogImageSlug, pageMetadata } = load("util/metadata.ts");
+	assert.equal(ogImageSlug("/"), "home");
+	assert.equal(ogImageSlug("/projects"), "projects");
+	assert.equal(ogImageSlug("/projects/krainode/"), "krainode");
+	const home = pageMetadata("Cloud Platform / DevOps Engineer", "d", "/");
+	assert.equal(
+		home.openGraph.images[0].url,
+		"https://www.krissemmy.com/og/home.png",
+	);
+	assert.equal(home.twitter.images[0], "https://www.krissemmy.com/og/home.png");
+	const project = pageMetadata("T", "d", "/projects/krainode");
+	assert.equal(
+		project.openGraph.images[0].url,
+		"https://www.krissemmy.com/og/krainode.png",
+	);
 });

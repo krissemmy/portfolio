@@ -13,8 +13,6 @@ export const metadata = pageMetadata(
   "/projects",
 );
 
-export const revalidate = 60;
-
 // Category display order. Cloud/DevOps leads so the first impression is
 // infrastructure and reliability, not Web3.
 const CATEGORY_ORDER = [

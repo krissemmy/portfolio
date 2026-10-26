@@ -1,0 +1,7 @@
+# Origin HSTS observed on the Vercel deployment: max-age=63072000, no includeSubDomains.
+# Hashed Next bundles can be cached immutably. HTML keeps the asset default (revalidate).
+/*
+  Strict-Transport-Security: max-age=63072000
+
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
