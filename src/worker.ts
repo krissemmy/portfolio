@@ -125,6 +125,8 @@ export async function handleConsulting(
 			JSON.stringify({
 				event: "consulting_honeypot",
 				message: "Consulting form honeypot tripped, message not sent",
+				// Length only, never the value, to tell autofill from bots.
+				hp_length: fields.hp_check.length,
 			}),
 		);
 		return json({ ok: true });

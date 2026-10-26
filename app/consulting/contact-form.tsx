@@ -78,17 +78,21 @@ export function ConsultingContactForm() {
 			<p className="text-sm text-zinc-400">
 				Only name, work email, and company are required.
 			</p>
-			{/* Keep the existing non-semantic honeypot name to avoid password-manager autofill. */}
-			<input
-				type="text"
-				name="hp_check"
-				tabIndex={-1}
-				autoComplete="off"
-				data-lpignore="true"
-				data-1p-ignore="true"
-				className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
-				aria-hidden="true"
-			/>
+			{/* Honeypot. display:none (the `hidden` wrapper) makes it unfocusable, so
+			    browser and password-manager autofill skip it; an off-screen field
+			    next to the Name label was being autofilled and dropped real inquiries.
+			    Bots that fill every input in the HTML still trip it. */}
+			<div hidden aria-hidden="true">
+				<input
+					type="text"
+					name="hp_check"
+					tabIndex={-1}
+					autoComplete="off"
+					data-lpignore="true"
+					data-1p-ignore="true"
+					data-form-type="other"
+				/>
+			</div>
 			<div className="grid gap-4 sm:grid-cols-2">
 				<div>
 					<label htmlFor="name" className={labelClass}>

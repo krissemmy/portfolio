@@ -27,7 +27,7 @@ function load(file, overrides = {}, env = {}, globals = {}) {
 			Uint8Array,
 			TextDecoder,
 			process: { env },
-			console: { warn() {}, error() {} },
+			console: globals.console ?? { warn() {}, error() {} },
 			fetch: globals.fetch ?? fetch,
 			require(name) {
 				if (overrides[name]) return overrides[name];
@@ -192,6 +192,100 @@ test("malformed requests and honeypot submissions never call the provider", asyn
 	assert.equal((await POST(request({ ...minimum, company: "" }))).status, 400);
 	assert.equal((await POST(request({ hp_check: "bot" }))).status, 200);
 	assert.equal(calls, 0);
+});
+
+test("a tripped honeypot logs its length and never the value", async () => {
+	const warnings = [];
+	const filled = "Emmanuel Christopher";
+	const env = {
+		RESEND_API_KEY: "test-only-key",
+		CONSULTING_RATE_LIMITER: {
+			async limit() {
+				throw new Error("honeypot must not consume the rate limit");
+			},
+		},
+	};
+	const worker = load("src/worker.ts", {}, env, {
+		console: {
+			warn(line) {
+				warnings.push(line);
+			},
+			error() {},
+		},
+		async fetch() {
+			throw new Error("honeypot must not email");
+		},
+	}).default;
+	const response = await worker.fetch(
+		request({ ...minimum, hp_check: filled }),
+		env,
+	);
+	assert.equal(response.status, 200);
+	assert.equal((await response.json()).ok, true);
+	assert.equal(warnings.length, 1);
+	const logged = JSON.parse(warnings[0]);
+	assert.equal(logged.event, "consulting_honeypot");
+	assert.equal(logged.hp_length, filled.length);
+	assert.equal(JSON.stringify(logged).includes(filled), false);
+});
+
+function renderContactForm() {
+	const React = require("react");
+	const { renderToStaticMarkup } = require("react-dom/server");
+	const filename = path.join(root, "app/consulting/contact-form.tsx");
+	const code = ts.transpileModule(readFileSync(filename, "utf8"), {
+		compilerOptions: {
+			module: ts.ModuleKind.CommonJS,
+			target: ts.ScriptTarget.ES2022,
+			jsx: ts.JsxEmit.ReactJSX,
+		},
+		fileName: filename,
+	}).outputText;
+	const exports = {};
+	const cache = new Map();
+	function localRequire(name) {
+		if (name === "react" || name === "react/jsx-runtime") return require(name);
+		if (cache.has(name)) return cache.get(name);
+		const target = name.startsWith("@/")
+			? path.join(root, `${name.slice(2)}.ts`)
+			: path.resolve(path.dirname(filename), name);
+		const depCode = ts.transpileModule(readFileSync(target, "utf8"), {
+			compilerOptions: {
+				module: ts.ModuleKind.CommonJS,
+				target: ts.ScriptTarget.ES2022,
+			},
+			fileName: target,
+		}).outputText;
+		const depExports = {};
+		vm.runInNewContext(
+			depCode,
+			{ exports: depExports, require: localRequire },
+			{ filename: target },
+		);
+		cache.set(name, depExports);
+		return depExports;
+	}
+	vm.runInNewContext(code, { exports, require: localRequire }, { filename });
+	return renderToStaticMarkup(
+		React.createElement(exports.ConsultingContactForm),
+	);
+}
+
+test("the rendered honeypot sits inside a hidden container", () => {
+	const html = renderContactForm();
+	const at = html.indexOf('name="hp_check"');
+	assert.notEqual(at, -1, "honeypot input missing");
+	const open = html.lastIndexOf("<div", at);
+	const tagEnd = html.indexOf(">", open);
+	assert.equal(html.slice(open, tagEnd + 1), '<div hidden="" aria-hidden="true">');
+	const close = html.indexOf("</div>", at);
+	assert.ok(close > at);
+	assert.match(
+		html.slice(tagEnd + 1, close),
+		/^<input [^>]*name="hp_check"[^>]*>$/,
+	);
+	assert.doesNotMatch(html, /-left-\[9999px\]|h-0 w-0/);
+	assert.ok(html.indexOf('autoComplete="name"') > close);
 });
 
 test("missing configuration and provider failures never report success", async () => {
