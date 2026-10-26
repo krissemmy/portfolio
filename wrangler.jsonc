@@ -5,6 +5,8 @@
 	"compatibility_date": "2026-10-26",
 	"compatibility_flags": ["nodejs_compat"],
 	"upload_source_maps": true,
+	// Wrangler otherwise publishes a version preview URL on deploy.
+	"preview_urls": false,
 	"observability": {
 		"enabled": true,
 		"logs": { "enabled": true, "head_sampling_rate": 1 },

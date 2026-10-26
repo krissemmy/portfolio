@@ -39,7 +39,7 @@ The consulting rate limit is 5 accepted inquiries per 60 seconds per client IP p
 
 ## Deploy
 
-This publishes to `*.workers.dev` only. It does not change krissemmy.com.
+This publishes to `*.workers.dev` only. It does not change krissemmy.com. `preview_urls` is `false` in `wrangler.jsonc`, so a deploy does not also publish a version preview URL (`<version>-krissemmy-portfolio.<subdomain>.workers.dev`). Wrangler turned those on by default during a test deploy.
 
 ```sh
 pnpm deploy
