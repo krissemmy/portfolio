@@ -31,7 +31,7 @@ pnpm exec wrangler secret put CONSULTING_CONTACT_EMAIL
 pnpm exec wrangler secret put RESEND_FROM_EMAIL   # optional
 ```
 
-`CONSULTING_CONTACT_EMAIL` defaults to `consulting@krissemmy.com`. `RESEND_FROM_EMAIL` defaults to `Portfolio Contact <consulting@krissemmy.com>`. Copy names into `.dev.vars` for `wrangler dev` (see `.env.example`).
+`CONSULTING_CONTACT_EMAIL` is an optional comma-separated list (`krissemmy17@gmail.com,consulting@krissemmy.com`). Whitespace is trimmed, empty entries are dropped, each address must be an email, and duplicates are ignored. When the secret is unset, inquiries go to both `krissemmy17@gmail.com` and `consulting@krissemmy.com`. `RESEND_FROM_EMAIL` defaults to `Portfolio Contact <consulting@krissemmy.com>`. Copy names into `.dev.vars` for `wrangler dev` (see `.env.example`).
 
 `wrangler secret put` deploys a new version. Prefer `wrangler versions secret put` when the change should not go out immediately.
 
@@ -76,7 +76,7 @@ After a later custom-domain swap: recreate `www` `CNAME` `c388903fce3a900c.verce
 - `POST /api/incr` and the project view counter are removed. The Vercel project has no Upstash credentials, so the counter could not persist.
 - Open Graph images are files at `/og/<slug>.png` (one per page, 1200×630). `/og?title=` and `/consulting/opengraph-image` are gone. The consulting card keeps its own layout. Already-cached social cards keep the old URL until a platform rescrapes.
 - `next/image` is unoptimized. There is no `/_next/image` optimizer. The portrait is the existing WebP file.
-- `POST /api/consulting` is the Worker, not a Next route. The JSON contract is the same, including honeypot `{ ok: true }` and the 400 / 502 / 503 messages. New: HTTP 429 after the rate limit. Mail is a `fetch` to `https://api.resend.com/emails` with the same `reply_to` and text body the Resend SDK sent.
+- `POST /api/consulting` is the Worker, not a Next route. The JSON contract is the same, including honeypot `{ ok: true }` and the 400 / 502 / 503 messages. New: HTTP 429 after the rate limit. Mail is a `fetch` to `https://api.resend.com/emails` with the same `reply_to` and text body the Resend SDK sent. `to` is an array. The default recipients are `krissemmy17@gmail.com` and `consulting@krissemmy.com`.
 - Static responses send `Strict-Transport-Security: max-age=63072000` via `public/_headers`. `/_next/static/*` is `public, max-age=31536000, immutable`. Worker responses set the same HSTS plus `Cache-Control: no-store`.
 - `/projects` and `/projects/` follow Next's no-slash files (`auto-trailing-slash`): `/projects/` is a 307 to `/projects`. Unknown paths serve `404.html` with status 404.
 - Apex 301 is not in the Worker. It is the cutover redirect above.

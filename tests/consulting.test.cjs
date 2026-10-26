@@ -255,6 +255,62 @@ test("the rate limit blocks delivery and other API methods stay closed", async (
 	);
 });
 
+async function deliveredTo(contactEmail) {
+	let sent;
+	const extra =
+		contactEmail === undefined ? {} : { CONSULTING_CONTACT_EMAIL: contactEmail };
+	const POST = route(async (payload) => {
+		sent = payload;
+		return { error: null };
+	}, true, extra);
+	const response = await POST(request(minimum));
+	assert.equal(response.status, 200);
+	assert.ok(Array.isArray(sent.to));
+	return sent.to;
+}
+
+test("a single CONSULTING_CONTACT_EMAIL is sent as the Resend to array", async () => {
+	assert.deepEqual(await deliveredTo(" consulting@krissemmy.com "), [
+		"consulting@krissemmy.com",
+	]);
+});
+
+test("CONSULTING_CONTACT_EMAIL splits, trims, drops blanks, and dedupes", async () => {
+	assert.deepEqual(
+		await deliveredTo(
+			" krissemmy17@gmail.com, consulting@krissemmy.com, , krissemmy17@gmail.com , KRISSEMMY17@gmail.com ",
+		),
+		["krissemmy17@gmail.com", "consulting@krissemmy.com"],
+	);
+});
+
+test("an unset CONSULTING_CONTACT_EMAIL delivers to both default inboxes", async () => {
+	assert.deepEqual(await deliveredTo(undefined), [
+		"krissemmy17@gmail.com",
+		"consulting@krissemmy.com",
+	]);
+	assert.deepEqual(await deliveredTo("  "), [
+		"krissemmy17@gmail.com",
+		"consulting@krissemmy.com",
+	]);
+});
+
+test("an invalid CONSULTING_CONTACT_EMAIL never calls the provider", async () => {
+	let calls = 0;
+	const POST = route(
+		async () => {
+			calls += 1;
+			return { error: null };
+		},
+		true,
+		{ CONSULTING_CONTACT_EMAIL: "not-an-email, consulting@krissemmy.com" },
+	);
+	const response = await POST(request(minimum));
+	assert.equal(response.status, 503);
+	assert.equal((await response.json()).ok, undefined);
+	assert.equal(calls, 0);
+});
+
 test("page metadata points at one pre-rendered png per path", () => {
 	const { ogImageSlug, pageMetadata } = load("util/metadata.ts");
 	assert.equal(ogImageSlug("/"), "home");

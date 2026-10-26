@@ -5,8 +5,9 @@ export const profile = {
     "Cloud Platform / DevOps Engineer working across production infrastructure, AI infrastructure, deployments, reliability, and debugging.",
   email: "krissemmy17@gmail.com",
   // Separate from `email`: recruiters and general contact use the personal
-  // address, client/consulting inquiries go here. Also the verified Resend
-  // sending domain, so the /consulting form sends from it.
+  // address. The consulting form delivers to both unless
+  // CONSULTING_CONTACT_EMAIL overrides the list. This address is also the
+  // verified Resend sender, so the form sends from it.
   consultingEmail: "consulting@krissemmy.com",
   github: "https://github.com/krissemmy",
   linkedin: "https://www.linkedin.com/in/emmanuel-christopher/",

@@ -13,6 +13,30 @@ const SECURITY_HEADERS = {
 // Above the sum of the field limits in util/consulting-inquiry.ts.
 const MAX_BODY_BYTES = 32_000;
 
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Used when CONSULTING_CONTACT_EMAIL is unset or blank.
+const DEFAULT_CONSULTING_RECIPIENTS = [profile.email, profile.consultingEmail];
+
+// Trim, drop blanks, require every remaining value to be an email, and dedupe
+// case-insensitively while keeping the first spelling. Null means the secret
+// is set but not a usable list.
+export function consultingRecipients(raw: string | undefined): string[] | null {
+	const source = raw && raw.trim() ? raw : DEFAULT_CONSULTING_RECIPIENTS.join(",");
+	const seen = new Set<string>();
+	const recipients: string[] = [];
+	for (const part of source.split(",")) {
+		const email = part.trim();
+		if (!email) continue;
+		if (!EMAIL.test(email)) return null;
+		const key = email.toLowerCase();
+		if (seen.has(key)) continue;
+		seen.add(key);
+		recipients.push(email);
+	}
+	return recipients.length > 0 ? recipients : null;
+}
+
 type ConsultingEnv = Env & {
 	RESEND_API_KEY?: string;
 	CONSULTING_CONTACT_EMAIL?: string;
@@ -141,7 +165,22 @@ export async function handleConsulting(
 		);
 	}
 
-	const to = env.CONSULTING_CONTACT_EMAIL || profile.consultingEmail;
+	const to = consultingRecipients(env.CONSULTING_CONTACT_EMAIL);
+	if (!to) {
+		console.error(
+			JSON.stringify({
+				event: "consulting_recipients_invalid",
+				message: "CONSULTING_CONTACT_EMAIL is not a list of email addresses",
+			}),
+		);
+		return json(
+			{
+				error:
+					"The contact form isn't configured yet — please email me directly instead.",
+			},
+			503,
+		);
+	}
 	const from =
 		env.RESEND_FROM_EMAIL || `Portfolio Contact <${profile.consultingEmail}>`;
 	const payload = {
