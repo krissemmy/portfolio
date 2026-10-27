@@ -50,7 +50,7 @@ export const selectedWork = [
     details: [
       { label: "Problem", text: "Investigating an RPC endpoint often starts with a vague report that requests are slow or failing." },
       { label: "My contribution", text: "I built a browser-based JSON-RPC playground for sending requests and inspecting responses and timings." },
-      { label: "Outcome", text: "A repeatable way to test endpoint behavior and turn a reported issue into a request another engineer can inspect." },
+      { label: "Outcome", text: "650+ users since Sep 2025. A repeatable way to test endpoint behavior and turn a reported issue into a request another engineer can inspect." },
     ],
     links: [
       { label: "Explore KraiNode", href: "/projects/krainode" },

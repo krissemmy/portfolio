@@ -11,7 +11,7 @@ Reviewed 7 October 2026. This is an editorial record, not a live infrastructure 
 | Carybin core hosting, about $300/month to €8/month | Existing migration entry and Carybin recommendation in `data/testimonials.ts`. Original currencies and approximate scope retained; not converted into a total-spend percentage. |
 | Letsdap hosting about 90%, total recurring infrastructure about 65% | Founder recommendation in `data/testimonials.ts`; separately attributed. Existing article supports keeping MongoDB managed. |
 | Dailzero migration and handover | Owner-directed review of `dailzero/NEON_TO_DOKPLOY.md` and `dailzero/OPERATIONS_HANDOVER.md` in the consultation workspace. Records dated 19–20 August 2026 distinguish rehearsed migration checks from a completed staging R2 restore. No measured downtime, savings, production restore, or full disaster-recovery claim added. No private identifiers copied. |
-| KraiNode adoption | Old portfolio says 400+ engineers; current resumes say 500+ users. Neither establishes the same audience or measurement method. Count omitted throughout the website. |
+| KraiNode adoption | Google Analytics 4 for KraiNode, 1 September 2025 through 27 October 2026: 669 active users and 674 new users. Public copy says "650+ users since Sep 2025". GA counts visitors in that window. Copy does not call them engineers or developers, and does not claim signups, MAU, retention, or a country count. |
 | Kubernetes and Helm | Owner explicitly identifies this as personal/lab experience. Kubernetes projects and skills labeled accordingly. |
 | ShipCheck | Local project README confirms server-side inspection and separate Launch Score / Inspection Confidence. Removed outdated browser-only wording and implication that a score proves production readiness. |
 
@@ -20,8 +20,9 @@ Resume sources (read, not modified):
 - General: https://drive.google.com/file/d/1g-8yP4KICS7orlreJXXDQGp5pWh1FJ7j/view
 
 Existing project URLs and all six resume IDs are preserved. The PDFs were not updated.
-Before reintroducing numerical latency or adoption claims, confirm the measurement window,
-percentile and audience definition. Original client quotations remain unchanged.
+Before reintroducing numerical latency claims, confirm the measurement definition and
+percentile. KraiNode's public user count is the verified GA4 window in the table above.
+Original client quotations remain unchanged.
 
 Canonical origin is `https://www.krissemmy.com`: the apex returned a redirect to this
 hostname, and the www homepage returned HTTP 200 during this update.
