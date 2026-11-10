@@ -1,0 +1,65 @@
+MIGRATION.md
+  s_c93c86a4ce4708::t_b950516d306bfc 7
+.nvmrc
+  s_c93c86a4ce4708::t_6ccc7adaeba177 1
+package.json
+  s_c93c86a4ce4708::t_b0c4e57ea37973 6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "autter_version": "3.0.0",
+  "base_commit_sha": "1c45a5df6797efa8266538baf1874ffeb1d1b857",
+  "branch": "node-26-lts",
+  "prompts": {
+    "s_c93c86a4ce4708": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "66a6dd08-c9ff-4484-a244-15f33f5fd950",
+        "model": "claude-fable-5-2"
+      },
+      "human_author": "krissemmy <krissemmy17@gmail.com>",
+      "messages_url": "cas:439d89bc6e4c297f1f4d357792d017be15fc3ed4e994af919788f2a516f7294e",
+      "total_additions": 3,
+      "total_deletions": 3,
+      "accepted_lines": 3,
+      "overriden_lines": 0
+    }
+  },
+  "sessions": {
+    "s_c93c86a4ce4708": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "66a6dd08-c9ff-4484-a244-15f33f5fd950",
+        "model": "claude-fable-5-2"
+      },
+      "human_author": "krissemmy <krissemmy17@gmail.com>",
+      "messages_url": "cas:439d89bc6e4c297f1f4d357792d017be15fc3ed4e994af919788f2a516f7294e",
+      "stats": {
+        "total_additions": 3,
+        "total_deletions": 3,
+        "accepted_lines": 3,
+        "overriden_lines": 0,
+        "files": {
+          ".nvmrc": {
+            "total_additions": 1,
+            "total_deletions": 1,
+            "accepted_lines": 1,
+            "overriden_lines": 0
+          },
+          "MIGRATION.md": {
+            "total_additions": 1,
+            "total_deletions": 1,
+            "accepted_lines": 1,
+            "overriden_lines": 0
+          },
+          "package.json": {
+            "total_additions": 1,
+            "total_deletions": 1,
+            "accepted_lines": 1,
+            "overriden_lines": 0
+          }
+        }
+      }
+    }
+  }
+}
