@@ -4,7 +4,7 @@ The site is a Next.js static export (`out/`) served by the Worker `krissemmy-por
 
 ## Build
 
-Requires Node.js 22 (see `.nvmrc`).
+Requires Node.js 26 (see `.nvmrc`).
 
 ```sh
 pnpm install --frozen-lockfile
