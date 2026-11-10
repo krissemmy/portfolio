@@ -3,6 +3,8 @@ import { allProjects } from "contentlayer/generated";
 import { Mdx } from "@/app/components/mdx";
 import { Header } from "./header";
 import { pageMetadata } from "@/util/metadata";
+import { projectGraph } from "@/util/structured-data";
+import { JsonLd } from "@/app/components/json-ld";
 import "./mdx.css";
 
 type Props = {
@@ -37,6 +39,7 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <main className="bg-zinc-50 min-h-screen">
+      <JsonLd data={projectGraph(project)} />
       <Header project={project} />
 
       <article className="px-4 py-12 mx-auto prose prose-zinc prose-quoteless">

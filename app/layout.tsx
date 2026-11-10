@@ -4,6 +4,8 @@ import LocalFont from "@next/font/local";
 import { Metadata } from "next";
 import { Analytics } from "./components/analytics";
 import { profile } from "@/data/profile";
+import { JsonLd } from "./components/json-ld";
+import { siteGraph } from "@/util/structured-data";
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),
@@ -72,6 +74,7 @@ export default function RootLayout({
           }`}
       >
         {children}
+        <JsonLd data={siteGraph} />
       </body>
     </html>
   );

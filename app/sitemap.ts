@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...paths.map((path) => ({ url: new URL(path, profile.siteUrl).toString() })),
     ...allProjects.filter((project) => project.published).map((project) => ({
       url: `${profile.siteUrl}/projects/${project.slug}`,
+      ...(project.date ? { lastModified: project.date } : {}),
     })),
   ];
 }
