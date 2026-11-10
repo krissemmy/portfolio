@@ -3,8 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import portrait from "@/public/images/emmanuel-christopher.webp";
 import { Navigation } from "../components/nav";
+import { JsonLd } from "../components/json-ld";
+import { consultingGraph, faqGraph } from "@/util/structured-data";
 import { profile } from "@/data/profile";
-import { consulting } from "@/data/consulting";
+import { consulting, faq } from "@/data/consulting";
 import { testimonials } from "@/data/testimonials";
 import { ConsultingContactForm } from "./contact-form";
 import styles from "./page.module.css";
@@ -146,6 +148,8 @@ export default function ConsultingPage() {
 				Skip to content
 			</a>
 			<Navigation />
+			<JsonLd data={consultingGraph(title, description)} />
+			<JsonLd data={faqGraph} />
 			<main id="main" className="px-6 pt-28 mx-auto max-w-7xl lg:px-8 lg:pt-36">
 				<section
 					className="grid gap-10 pb-12 border-b border-zinc-800 lg:grid-cols-[1.45fr_1fr] lg:gap-16 lg:pb-16"
@@ -504,6 +508,24 @@ export default function ConsultingPage() {
 							Explore the project archive.
 						</Link>
 					</p>
+				</section>
+
+				<section className={styles.section} aria-labelledby="faq-title">
+					<div className="grid gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
+						<h2 id="faq-title" className={styles.heading}>
+							Common questions.
+						</h2>
+						<dl className="space-y-8">
+							{faq.map((item) => (
+								<div key={item.question}>
+									<dt className="font-medium text-zinc-100">{item.question}</dt>
+									<dd className="mt-2 text-sm leading-6 text-zinc-400">
+										{item.answer}
+									</dd>
+								</div>
+							))}
+						</dl>
+					</div>
 				</section>
 
 				<section

@@ -1,5 +1,8 @@
 export const profile = {
   name: "Emmanuel Christopher",
+  // Unique handle (domain, GitHub). Disambiguates a common name in search.
+  handle: "krissemmy",
+  employer: "RestoreAI",
   // Short line used for metadata / SEO and social cards.
   headline:
     "Cloud Platform / DevOps Engineer working across production infrastructure, AI infrastructure, deployments, reliability, and debugging.",

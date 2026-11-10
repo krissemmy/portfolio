@@ -4,13 +4,20 @@ import Particles from "./components/particles";
 import { SelectedWork } from "./components/selected-work";
 import { profile, hero, about, skills } from "@/data/profile";
 import { pageMetadata } from "@/util/metadata";
+import { profilePageGraph } from "@/util/structured-data";
+import { JsonLd } from "./components/json-ld";
 import portrait from "@/public/images/emmanuel-christopher.webp";
 
-export const metadata = pageMetadata(
-  "Cloud Platform / DevOps Engineer",
-  "Emmanuel Christopher owns production and AI infrastructure at RestoreAI. Explore platform engineering, startup infrastructure migrations, and JSON-RPC tooling.",
-  "/",
-);
+export const metadata = {
+  ...pageMetadata(
+    hero.title,
+    "Emmanuel Christopher owns production and AI infrastructure at RestoreAI. Explore platform engineering, startup infrastructure migrations, and JSON-RPC tooling.",
+    "/",
+  ),
+  // The root layout's title template does not apply to this page, so the name
+  // has to be added here or the homepage title omits it.
+  title: { absolute: `${profile.name} | ${hero.title}` },
+};
 
 const navigation = [
   { name: "Projects", href: "/projects" },
@@ -22,6 +29,7 @@ const navigation = [
 export default function Home() {
   return (
     <div className="bg-gradient-to-tl from-black via-zinc-600/20 to-black">
+      <JsonLd data={profilePageGraph} />
       <nav aria-label="Main navigation" className="px-6 pt-8 sm:pt-10">
         <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
           {navigation.map((item) => (
