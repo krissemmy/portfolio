@@ -1,0 +1,153 @@
+app/components/json-ld.tsx
+  s_c93c86a4ce4708::t_bc48cc18b4c07e 1-9
+content/projects/case-study-migrating-infrastructure-for-a-startup.mdx
+  s_c93c86a4ce4708::t_4bc115f5f44a25 2
+app/projects/[slug]/page.tsx
+  s_c93c86a4ce4708::t_5f28cdbf171134 6-7,42
+app/page.tsx
+  s_c93c86a4ce4708::t_5f28cdbf171134 7-8,11-20,32
+data/consulting.ts
+  s_c93c86a4ce4708::t_5f28cdbf171134 11-33
+  s_c93c86a4ce4708::t_b3adfbc79d2b13 34-75
+app/llms.txt/route.ts
+  s_c93c86a4ce4708::t_b5c6f75573de76 42-45
+  s_c93c86a4ce4708::t_43236e01cc1751 3
+util/structured-data.ts
+  s_c93c86a4ce4708::t_a335ca51821aed 95
+  s_c93c86a4ce4708::t_d073127cffdbc7 2
+  s_c93c86a4ce4708::t_6f86c5f4cedd6c 74-83
+app/sitemap.ts
+  s_c93c86a4ce4708::t_5f28cdbf171134 11
+app/layout.tsx
+  s_c93c86a4ce4708::t_5f28cdbf171134 7-8,77
+content/projects/dailzero-infrastructure-migration.mdx
+  s_c93c86a4ce4708::t_a9e18223ea3cbf 2-3
+app/consulting/page.tsx
+  s_c93c86a4ce4708::t_5f28cdbf171134 6,151
+  s_c93c86a4ce4708::t_5f1040392c9b2f 7
+  s_c93c86a4ce4708::t_3889b069037fbe 152
+  s_c93c86a4ce4708::t_6f589b76812c84 513-530
+  s_c93c86a4ce4708::t_9b97eb23ba1f6e 9
+content/projects/how-i-cut-a-startups-infrastructure-cost.mdx
+  s_c93c86a4ce4708::t_740c1f32060139 2-3
+data/profile.ts
+  s_c93c86a4ce4708::t_5f28cdbf171134 3-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "autter_version": "3.0.0",
+  "base_commit_sha": "51a5d6b46f023fa7025f9ba6eb73c46e14f49670",
+  "branch": "seo-structured-data",
+  "prompts": {
+    "s_c93c86a4ce4708": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "66a6dd08-c9ff-4484-a244-15f33f5fd950",
+        "model": "claude-fable-5-2"
+      },
+      "human_author": "krissemmy <krissemmy17@gmail.com>",
+      "messages_url": "cas:b1e13c720b96a65c051a3bfe1bf5037dcaee583171a70e9b5f56c6662f376a2a",
+      "total_additions": 143,
+      "total_deletions": 15,
+      "accepted_lines": 142,
+      "overriden_lines": 0
+    }
+  },
+  "sessions": {
+    "s_c93c86a4ce4708": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "66a6dd08-c9ff-4484-a244-15f33f5fd950",
+        "model": "claude-fable-5-2"
+      },
+      "human_author": "krissemmy <krissemmy17@gmail.com>",
+      "messages_url": "cas:b1e13c720b96a65c051a3bfe1bf5037dcaee583171a70e9b5f56c6662f376a2a",
+      "stats": {
+        "total_additions": 143,
+        "total_deletions": 15,
+        "accepted_lines": 142,
+        "overriden_lines": 0,
+        "files": {
+          "app/components/json-ld.tsx": {
+            "total_additions": 9,
+            "total_deletions": 0,
+            "accepted_lines": 9,
+            "overriden_lines": 0
+          },
+          "app/consulting/page.tsx": {
+            "total_additions": 24,
+            "total_deletions": 2,
+            "accepted_lines": 23,
+            "overriden_lines": 0
+          },
+          "app/layout.tsx": {
+            "total_additions": 3,
+            "total_deletions": 0,
+            "accepted_lines": 3,
+            "overriden_lines": 0
+          },
+          "app/llms.txt/route.ts": {
+            "total_additions": 5,
+            "total_deletions": 1,
+            "accepted_lines": 5,
+            "overriden_lines": 0
+          },
+          "app/page.tsx": {
+            "total_additions": 13,
+            "total_deletions": 5,
+            "accepted_lines": 13,
+            "overriden_lines": 0
+          },
+          "app/projects/[slug]/page.tsx": {
+            "total_additions": 3,
+            "total_deletions": 0,
+            "accepted_lines": 3,
+            "overriden_lines": 0
+          },
+          "app/sitemap.ts": {
+            "total_additions": 1,
+            "total_deletions": 0,
+            "accepted_lines": 1,
+            "overriden_lines": 0
+          },
+          "content/projects/case-study-migrating-infrastructure-for-a-startup.mdx": {
+            "total_additions": 1,
+            "total_deletions": 1,
+            "accepted_lines": 1,
+            "overriden_lines": 0
+          },
+          "content/projects/dailzero-infrastructure-migration.mdx": {
+            "total_additions": 2,
+            "total_deletions": 2,
+            "accepted_lines": 2,
+            "overriden_lines": 0
+          },
+          "content/projects/how-i-cut-a-startups-infrastructure-cost.mdx": {
+            "total_additions": 2,
+            "total_deletions": 2,
+            "accepted_lines": 2,
+            "overriden_lines": 0
+          },
+          "data/consulting.ts": {
+            "total_additions": 65,
+            "total_deletions": 0,
+            "accepted_lines": 65,
+            "overriden_lines": 0
+          },
+          "data/profile.ts": {
+            "total_additions": 3,
+            "total_deletions": 0,
+            "accepted_lines": 3,
+            "overriden_lines": 0
+          },
+          "util/structured-data.ts": {
+            "total_additions": 12,
+            "total_deletions": 2,
+            "accepted_lines": 12,
+            "overriden_lines": 0
+          }
+        }
+      }
+    }
+  }
+}
